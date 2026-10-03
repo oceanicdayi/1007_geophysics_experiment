@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>折射震測 (Seismic Refraction) 微型教學教案</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --bg-color: #f8f9fa;
+            --text-color: #333333;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            opacity: 0.9;
+        }
+
+        .tags {
+            margin-top: 1.5rem;
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin: 0 0.3rem;
+            border: 1px solid rgba(255,255,255,0.4);
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: -2rem auto 2rem;
+            padding: 0 1rem;
+            position: relative;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+        }
+
+        .objectives ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .objectives ul li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .objectives ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: #e9ecef;
+            top: 0;
+            bottom: 0;
+            left: 20px;
+            margin-left: -2px;
+        }
+
+        .step {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: calc(100% - 80px);
+        }
+
+        .step::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: auto;
+            background-color: var(--card-bg);
+            border: 4px solid var(--secondary-color);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+            left: 10px;
+        }
+
+        .step-content {
+            padding: 1.5rem;
+            background-color: var(--card-bg);
+            position: relative;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .step-time {
+            font-weight: bold;
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .highlight-box {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .highlight-box strong {
+            color: #856404;
+        }
+
+        .analogy-box {
+            background-color: #e8f4f8;
+            border: 1px solid #b6d4fe;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .analogy-icon {
+            font-size: 2rem;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            padding: 1rem;
+            border: 1px solid #dee2e6;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            color: var(--primary-color);
+        }
+
+        .cer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .cer-card {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 6px;
+            border-top: 4px solid var(--primary-color);
+        }
+
+        .cer-card.claim { border-color: #2ecc71; }
+        .cer-card.evidence { border-color: #3498db; }
+        .cer-card.reasoning { border-color: #9b59b6; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>折射震測 (Seismic Refraction)</h1>
+        <p>15分鐘雙語微教學教案：探索地下的隱形構造</p>
+        <div class="tags">
+            <span class="tag">CLIL 雙語</span>
+            <span class="tag">POE 策略</span>
+            <span class="tag">CER 論證框架</span>
+            <span class="tag">Modeling 建模</span>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <div class="card objectives">
+            <h2>🎯 核心學習目標 (Core Objectives)</h2>
+            <ul>
+                <li>學生能透過 <strong>POE</strong> 預測波的傳播，並從陣列 (Array) 觀察中發現走時斜率異常。</li>
+                <li>學生能運用 <strong>CER</strong> 框架，從波形斜率改變的證據 (Evidence) 推論出地下存在高速層 (Claim)。</li>
+                <li>熟悉核心英文詞彙：<em>Seismometer (地震儀), Travel-time curve (走時曲線), Head wave (折射波), Crossover distance (交線距離)</em>。</li>
+            </ul>
+            <div class="highlight-box">
+                <strong>核心提問：</strong> 如何在不破壞地表的前提下，得知地下構造？
+            </div>
+        </div>
+
+        <h2>⏱️ 教學流程與邏輯推演</h2>
+        <div class="timeline">
+            
+            <!-- Step 1 -->
+            <div class="step">
+                <div class="step-content">
+                    <div class="step-time">0 - 3 min</div>
+                    <div class="step-title">建立模型 (Design a model) | POE - Prediction</div>
+                    <p><strong>情境設定：</strong> 介紹 Source (鐵鎚) 與 Receiver (地震儀)。</p>
+                    <p><strong>教師提問：</strong> "If we place 1 seismometer, wait 2 mins, hit the ground 3 meters away, and record for 2 more mins. What will the record look like?"</p>
+                    <p><strong>學生反應：</strong> 在紙上畫出預測的波形 (2分鐘時出現突波)。學生建立初步模型：波需要時間傳遞，走時與距離成正比。</p>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step">
+                <div class="step-content">
+                    <div class="step-time">3 - 7 min</div>
+                    <div class="step-title">擴展模型 (Elaborate the model) | POE - Observation</div>
+                    <p><strong>陣列布設：</strong> "Let's make it an Array!" 將多個地震儀每隔3公尺排成一直線。</p>
+                    <p><strong>教師提問：</strong> "What happens to the records as distance increases?"</p>
+                    <p><strong>學生預期：</strong> 訊號出現的時間會等比例越來越晚，預期畫出一條斜直線的走時曲線。</p>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step">
+                <div class="step-content" style="border-left-color: var(--accent-color);">
+                    <div class="step-time" style="color: var(--accent-color);">7 - 11 min (認知衝突點)</div>
+                    <div class="step-title">應用與發現衝突 (Apply the model) | POE - Explain</div>
+                    <p><strong>投下數據震撼彈：</strong> 展示真實陣列數據。</p>
+                    <p><strong>現象觀察：</strong> 距離較遠的測站，第一個收到的波並沒有「比近的站早到」，但是<strong>這條線的斜率 (Slope) 竟然改變了！變緩了！</strong></p>
+                    <p><strong>CLIL 提問：</strong> "The time is still increasing, but the slope is different! A gentler slope means what? Why does the velocity suddenly increase?"</p>
+                    <p><strong>學生反應陷入苦思：</strong> 原本單一均勻地層的模型被打破，地表明明一樣，波速怎麼會突然變快？</p>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step">
+                <div class="step-content">
+                    <div class="step-time">11 - 15 min</div>
+                    <div class="step-title">修正模型 (Revise the model) | CER 論證</div>
+                    <p><strong>解密構造：</strong> 引導學生思考地表之下的立體空間，介紹 <strong>Seismic Refraction</strong>。</p>
+                    
+                    <div class="cer-grid">
+                        <div class="cer-card claim">
+                            <h4>Claim (主張)</h4>
+                            <p>地表下方存在另一個波速更快的高速層 (High-velocity layer)。</p>
+                        </div>
+                        <div class="cer-card evidence">
+                            <h4>Evidence (證據)</h4>
+                            <p>遠處測站的走時曲線斜率變緩 (Slope decreases)，出現交線距離 (Crossover distance)。</p>
+                        </div>
+                        <div class="cer-card reasoning">
+                            <h4>Reasoning (推論)</h4>
+                            <p>下層波速極快，沿著介面滑行的折射波 (Refracted wave) 在遠距離時，會比在地表慢傳的直達波更早抵達接收站。</p>
+                        </div>
+                    </div>
+
+                    <div class="analogy-box">
+                        <div class="analogy-icon">🚗</div>
+                        <div>
+                            <strong>生活化比喻 (The Highway Analogy)：</strong><br>
+                            「直達波就像走會塞車的<strong>市區平面道路</strong>，折射波就像稍微繞點路去上<strong>高速公路</strong>。雖然上交流道需要繞路 (往下傳遞的路徑長)，但只要目的地夠遠 (距離超過交線距離)，走高速公路的車反而會更早抵達！」
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
